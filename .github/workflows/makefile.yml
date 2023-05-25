@@ -16,5 +16,6 @@ jobs:
     
     
     - name: Run test
+      run: make test_setup
       run: make test
 
