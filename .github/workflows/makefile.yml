@@ -18,8 +18,8 @@ jobs:
       with:
         go-version-file: 'go.mod'
 
-    # - name: Install dependencies
-    #   run: go get .
+    - name: Install dependencies
+      run: go get .
   
     - name: Setup test
       run: make test_setup
