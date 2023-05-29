@@ -11,8 +11,19 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout
-    - uses: actions/checkout@v3
-  
+      uses: actions/checkout@v3
+
+    - name: Set up SSH key
+      env:
+        SSH_AUTH_SOCK: /tmp/ssh_agent.sock
+      run: |
+        mkdir -p ~/.ssh
+        ssh-keyscan -H github.com >> ~/.ssh/known_hosts
+        ssh-agent -a $SSH_AUTH_SOCK > /dev/null
+        ssh-add - <<< "${{ secrets.SSH_PRIVATE_KEY }}"
+        git config --global url.ssh://git@github.com/.insteadOf https://github.com/
+        echo -e "${{ secrets.SSH_PRIVATE_KEY }}" > ssh_key
+
     - name: Set up Go
       uses: actions/setup-go@v4
       with:
@@ -20,10 +31,6 @@ jobs:
 
     - name: Install dependencies
       run: go get .
-  
-    - name: Setup test
-      run: make test_setup
 
     - name: Run tests
       run: make test_all
-
