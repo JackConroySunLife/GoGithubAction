@@ -20,9 +20,6 @@ jobs:
 
     - name: Install dependencies
       run: go get .
-  
-    - name: Setup test
-      run: make test_setup
 
     - name: Run tests
       run: make test_all

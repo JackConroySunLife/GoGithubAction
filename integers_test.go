@@ -5,7 +5,7 @@ import "testing"
 
 func TestMultiply(t *testing.T) {
 	got := Multiply(2, 5)
-	want := 11
+	want := 10
 
 	if want != got {
 		t.Errorf("Expected '%d', but got '%d'", want, got)
